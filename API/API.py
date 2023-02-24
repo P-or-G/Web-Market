@@ -1,12 +1,11 @@
-from API_settings import *                                  # Из файла с настройками берём вообще всё (библиотеки тоже)
+from API_settings import *                                  # Вся основа API и библиотеки из файла с настройками
 
 
-class Quote(Resource):                                      # Класс для отправки/получения запросов
-    def get(self, variation=0, user_id=0, product_id=0):    # HTTP-запрос типа GET
-        if variation == 0:
+class Quote(Resource):                                      # Класс для обработки запросов
+    def get(self, variation=0, user_id=0, product_id=0):    # Метод GET HTTP-запроса
+        if variation == 0:                                  # Вывод информации о покупателе
             pass
-        elif variation == 1:
+        elif variation == 1:                                # Вывод информации о продавце
             pass
-        elif variation == 2:
+        elif variation == 2:                                # Вывод информации о товаре
             pass
-
