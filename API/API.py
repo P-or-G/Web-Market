@@ -28,7 +28,62 @@ def get_login(id=0, email=''):
         for i in db_sess.query(User).filter(User.id == id):
             db_sess.close()
             return i.__repr__().split(' *** ')[1]
-    else:
-        print('error')
+    db_sess.close()
+    return None
 
 
+def get_email(id=0, login=''):
+    db_sess = db_session.create_session()
+    if login != '':
+        for i in db_sess.query(User).filter(User.login == login):
+            db_sess.close()
+            return i.__repr__().split(' *** ')[2]
+    elif id != 0:
+        for i in db_sess.query(User).filter(User.id == id):
+            db_sess.close()
+            return i.__repr__().split(' *** ')[2]
+    db_sess.close()
+    return None
+
+
+def get_id(login, password, email):
+    password = password_encrypt(password)
+    db_sess = db_session.create_session()
+    for i in db_sess.query(User).filter(User.login == login, User.hashed_password == password, User.email == email):
+        db_sess.close()
+        return i.__repr__().split(' *** ')[0]
+
+
+def get_password(id):
+    db_sess = db_session.create_session()
+    for i in db_sess.query(User).filter(User.id == id):
+        db_sess.close()
+        return password_encrypt(i.__repr__().split(' *** ')[3])
+
+
+def get_status(id):
+    db_sess = db_session.create_session()
+    for i in db_sess.query(User).filter(User.id == id):
+        db_sess.close()
+        return i.__repr__().split(' *** ')[4]
+
+
+def get_telegram_id(id):
+    db_sess = db_session.create_session()
+    for i in db_sess.query(User).filter(User.id == id):
+        db_sess.close()
+        return i.__repr__().split(' *** ')[5]
+
+
+def get_current_id(id):
+    db_sess = db_session.create_session()
+    for i in db_sess.query(User).filter(User.id == id):
+        db_sess.close()
+        return i.__repr__().split(' *** ')[6]
+
+
+def get_history_id(id):
+    db_sess = db_session.create_session()
+    for i in db_sess.query(User).filter(User.id == id):
+        db_sess.close()
+        return i.__repr__().split(' *** ')[7]
