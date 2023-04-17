@@ -1,12 +1,5 @@
-from flask import Flask
+from data.users import User
+from data.goods import Goods
+from data import db_session
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
-
-
-def main():
-    app.run()
-
-
-if __name__ == '__main__':
-    main()
+from Special.password_hash import password_encrypt, password_crypt

@@ -1,37 +1,34 @@
-from API_settings import *                                  # Вся основа API и библиотеки из файла с настройками
+from API_settings import *
 
 
-import sqlalchemy as sa
-import sqlalchemy.orm as orm
-from sqlalchemy.orm import Session
-import sqlalchemy.ext.declarative as dec
-
-SqlAlchemyBase = dec.declarative_base()
-
-__factory = None
+db_session.global_init("db/all.db")
 
 
-def global_init(db_file):
-    global __factory
-
-    if __factory:
-        return
-
-    if not db_file or not db_file.strip():
-        raise Exception("Необходимо указать файл базы данных.")
-
-    conn_str = f'sqlite:///{db_file.strip()}?check_same_thread=False'
-    print(f"Подключение к базе данных по адресу {conn_str}")
-
-    engine = sa.create_engine(conn_str, echo=True)
-    __factory = orm.sessionmaker(bind=engine)
-
-    from . import __all_models
-
-    SqlAlchemyBase.metadata.create_all(engine)
+def create_user(login, password, email, status='usr', tgm='Z'):
+    user = User()
+    user.login = login
+    user.hashed_password = password_crypt(password)
+    user.email = email
+    user.status = status
+    if tgm != 'Z':
+        user.telegram_id = tgm
+    db_sess = db_session.create_session()
+    db_sess.add(user)
+    db_sess.commit()
+    db_sess.close()
 
 
-def create_session() -> Session:
-    global __factory
-    return __factory()
+def get_login(id=0, email=''):
+    db_sess = db_session.create_session()
+    if email != '':
+        for i in db_sess.query(User).filter(User.email == email):
+            db_sess.close()
+            return i.__repr__().split(' *** ')[1]
+    elif id != 0:
+        for i in db_sess.query(User).filter(User.id == id):
+            db_sess.close()
+            return i.__repr__().split(' *** ')[1]
+    else:
+        print('error')
+
 
