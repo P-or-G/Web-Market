@@ -1,0 +1,176 @@
+:root {
+  --color1: #05b1b1;
+  --color2: #52339a;
+  --color3: #98FB98;
+}
+
+header,
+footer,
+section {
+  padding: 20px 0;
+}
+
+header {
+  padding: 20px 0;
+}
+
+footer {
+  background: url(../img/grass.jpg) no-repeat center center;
+  height: 120px;
+}
+
+
+header {
+  background: #b4ff7f;
+  background: -moz-linear-gradient(-45deg, #b4ff7f 0%, #e3f5ab 37%, #dcf48b 65%, #bfdd52 100%);
+  background: -webkit-linear-gradient(-45deg, #b4ff7f 0%,#e3f5ab 37%,#dcf48b 65%,#bfdd52 100%);
+  background: linear-gradient(135deg, #b4ff7f 0%,#e3f5ab 37%,#dcf48b 65%,#bfdd52 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b4ff7f', endColorstr='#bfdd52',GradientType=1 );
+}
+
+.right {
+  display: flex;
+  justify-content: right;
+  align-items: right;
+}
+.btn-group button {
+  display: flex;
+  justify-content: right;
+  background-color: var(--color1);
+  border: 1px solid green;
+  color: var(--color2);
+  width: 60px;
+  height: 60px;
+  padding: 3px 0px;
+  cursor: pointer;
+  margin: 0 0.5%;
+  padding-right: 50px;
+  border-radius: 50%;
+  float: right;
+}
+
+
+.all_btn {
+  display: flex;
+  justify-content: right;
+  background-color: var(--color1);
+  border: 1px solid green;
+  color: var(--color2);
+  width: 120px;
+  height: 120px;
+  padding: 3px 0px;
+  cursor: pointer;
+  margin: 0 0.5%;
+  padding-right: 50px;
+  border-radius: 50%;
+  float: right;
+}
+
+.prod_btn {
+  background-color: var(--color1);
+  border: 1px solid green;
+  color: var(--color2);
+  width: 80px;
+  height: 80px;
+  padding: 0px 0px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.filt_btn {
+  background-color: 255 99 71;
+  border: 1px solid green;
+  color: (255, 255, 255));
+  width: 200px;
+  height: 200px;
+  padding: 0px 0px;
+  text-align: center;
+  cursor: pointer;
+  padding-right: 50px;
+  border-radius: 50%;
+  font-size: 0.01px
+}
+
+
+
+.btn-group button:not(:last-child) {
+  border-right: none;
+}
+
+
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+
+.btn-group button:hover {
+  background-color: #3e8e41;
+}
+
+.profile {
+  background: url(../img/profile.png) no-repeat center center;
+}
+
+.basket {
+  background: url(../img/basket.png) no-repeat center center;
+}
+
+.favourite {
+  background: url(../img/favourite.png) no-repeat center center;
+}
+
+
+footer .btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+footer {
+  padding: 30px 0;
+}
+
+.color1 {
+  color: var(--color1);
+}
+.bg1 {
+  background-color: var(--color1);
+}
+.color2 {
+  color: var(--color2);
+}
+.bg2 {
+  background-color: var(--color2);
+}
+
+.color3 {color: var(--color1)
+}
+
+.meat{
+  background-image: url(../img/meats.jpg);
+}
+
+.foot{
+  background-image: url(../img/meats.jpg);
+}
+
+.milk{
+  background-image: url(../img/milk.jpg);
+}
+
+.veg{
+  background-image: url(../img/meats.jpg);
+}
+
+.fruit{
+  background-image: url(../img/meats.jpg);
+}
+
+.cosm{
+  background-image: url(../img/cosm.jpg);
+}

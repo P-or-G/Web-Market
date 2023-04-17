@@ -1,7 +1,12 @@
-from flask import Flask                                     # Flask
-from flask_restful import Api, Resource, reqparse           # Дополнения к Flask для создания API
-import sqlite3                                              # Библиотека для работы с БД
-
+from flask import Flask
 
 app = Flask(__name__)
-api = Api(app)                                              # Создаём приложение и API
+app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+
+
+def main():
+    app.run()
+
+
+if __name__ == '__main__':
+    main()

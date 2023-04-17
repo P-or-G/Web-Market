@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="" method="post" novalidate>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center text-uppercase color2 mb-5">Категории товаров</h1>
+            </div>
+        </div>
+        <div class="row my-5 text-center">
+            <div class="col-md-4">
+                <input type="submit" name="btn" class="btn filt_btn meat" value="meat" readonly>
+            </div>
+            <div class="col-md-4">
+                <input type="submit" name="btn" class="btn filt_btn milk" value="milk" readonly>
+            </div>
+            <div class="col-md-4">
+                <input type="submit" name="btn" class="btn filt_btn veg" value="veg" readonly>
+            </div>
+        </div>
+        <div class="row my-5 text-center">
+            <div class="col-md-4">
+                <input type="submit" name="btn" class="btn filt_btn fruit" value="fruit" readonly>
+            </div>
+            <div class="col-md-4">
+                <input type="submit" name="btn" class="btn filt_btn foot" value="foot" readonly>
+            </div>
+            <div class="col-md-4">
+                <input type="submit" name="btn" class="btn filt_btn cosm" value="cosm" readonly>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Подвал -->
+    <footer id=" footer
+            ">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <a class="btn btn-outline-light" target="_blank" href="https://www.youtube.com/c/ITDoctor"><i
+                            class="icon-youtube-play"></i></a>
+                    <a class="btn btn-outline-light" target="_blank"
+                       href="mailto:ismail_2016@mail.ru?subject=Вопрос по курсу html+css&body=Здравствуйте, ITDoctor,"><i
+                            class="icon-mail-alt"></i></a>
+                    <a class="btn btn-outline-light" target="_blank" href="https://t.me/itdoctorstudio"><i
+                            class="icon-paper-plane"></i></a>
+                    <a class="btn btn-outline-light" target="_blank" href="https://vk.com/itdoctorstudio"><i
+                            class="icon-vkontakte"></i></a>
+                    <a class="btn btn-outline-light" target="_blank" href="https://instagram.com/ismail_asanovich/"><i
+                            class="icon-instagram"></i></a>
+                    <a class="btn btn-outline-light" target="_blank" href="https://github.com/morphIsmail"><i
+                            class="icon-github-circled"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</form>
+{% endblock %}
