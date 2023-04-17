@@ -1,7 +1,5 @@
-from flask import Flask                                     # Flask
-from flask_restful import Api, Resource, reqparse           # Дополнения к Flask для создания API
-import sqlite3                                              # Библиотека для работы с БД
+from data.users import User
+from data.goods import Goods
+from data import db_session
 
-
-app = Flask(__name__)
-api = Api(app)                                              # Создаём приложение и API
+from Special.password_hash import password_encrypt, password_crypt

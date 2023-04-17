@@ -1,11 +1,89 @@
-from API_settings import *                                  # Вся основа API и библиотеки из файла с настройками
+from API_settings import *
 
 
-class Quote(Resource):                                      # Класс для обработки запросов
-    def get(self, variation=0, user_id=0, product_id=0):    # Метод GET HTTP-запроса
-        if variation == 0:                                  # Вывод информации о покупателе
-            pass
-        elif variation == 1:                                # Вывод информации о продавце
-            pass
-        elif variation == 2:                                # Вывод информации о товаре
-            pass
+db_session.global_init("db/all.db")
+
+
+def create_user(login, password, email, status='usr', tgm='Z'):
+    user = User()
+    user.login = login
+    user.hashed_password = password_crypt(password)
+    user.email = email
+    user.status = status
+    if tgm != 'Z':
+        user.telegram_id = tgm
+    db_sess = db_session.create_session()
+    db_sess.add(user)
+    db_sess.commit()
+    db_sess.close()
+
+
+def get_login(id=0, email=''):
+    db_sess = db_session.create_session()
+    if email != '':
+        for i in db_sess.query(User).filter(User.email == email):
+            db_sess.close()
+            return i.__repr__().split(' *** ')[1]
+    elif id != 0:
+        for i in db_sess.query(User).filter(User.id == id):
+            db_sess.close()
+            return i.__repr__().split(' *** ')[1]
+    db_sess.close()
+    return None
+
+
+def get_email(id=0, login=''):
+    db_sess = db_session.create_session()
+    if login != '':
+        for i in db_sess.query(User).filter(User.login == login):
+            db_sess.close()
+            return i.__repr__().split(' *** ')[2]
+    elif id != 0:
+        for i in db_sess.query(User).filter(User.id == id):
+            db_sess.close()
+            return i.__repr__().split(' *** ')[2]
+    db_sess.close()
+    return None
+
+
+def get_id(login, password, email):
+    password = password_encrypt(password)
+    db_sess = db_session.create_session()
+    for i in db_sess.query(User).filter(User.login == login, User.hashed_password == password, User.email == email):
+        db_sess.close()
+        return i.__repr__().split(' *** ')[0]
+
+
+def get_password(id):
+    db_sess = db_session.create_session()
+    for i in db_sess.query(User).filter(User.id == id):
+        db_sess.close()
+        return password_encrypt(i.__repr__().split(' *** ')[3])
+
+
+def get_status(id):
+    db_sess = db_session.create_session()
+    for i in db_sess.query(User).filter(User.id == id):
+        db_sess.close()
+        return i.__repr__().split(' *** ')[4]
+
+
+def get_telegram_id(id):
+    db_sess = db_session.create_session()
+    for i in db_sess.query(User).filter(User.id == id):
+        db_sess.close()
+        return i.__repr__().split(' *** ')[5]
+
+
+def get_current_id(id):
+    db_sess = db_session.create_session()
+    for i in db_sess.query(User).filter(User.id == id):
+        db_sess.close()
+        return i.__repr__().split(' *** ')[6]
+
+
+def get_history_id(id):
+    db_sess = db_session.create_session()
+    for i in db_sess.query(User).filter(User.id == id):
+        db_sess.close()
+        return i.__repr__().split(' *** ')[7]
