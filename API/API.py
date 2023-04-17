@@ -87,3 +87,24 @@ def get_history_id(id):
     for i in db_sess.query(User).filter(User.id == id):
         db_sess.close()
         return i.__repr__().split(' *** ')[7]
+
+
+def change_param(id, param, new_val):
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.id == id).first()
+    if param == 1:
+        user.login = new_val
+    elif param == 2:
+        user.email = new_val
+    elif param == 3:
+        user.hashed_password = new_val
+    elif param == 4:
+        user.status = new_val
+    elif param == 5:
+        user.telegram_id = new_val
+    elif param == 6:
+        user.current_id = new_val
+    elif param == 7:
+        user.history_id = new_val
+    db_sess.commit()
+    db_sess.close()
