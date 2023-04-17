@@ -1,7 +1,4 @@
-from API_settings import *
-
-
-db_session.global_init("db/all.db")
+from lbr_settings import *
 
 
 def create_user(login, password, email, status='usr', tgm='Z'):
