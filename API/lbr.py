@@ -4,8 +4,31 @@ from API.lbr_settings import *
 db_session.global_init("../db/all.db")
 
 
+def get_all_users_ids():
+    db_sess = db_session.create_session()
+    users_ids_list = []
+
+    for user in db_sess.query(User).all():
+        users_ids_list.append(user.__repr__().split(' *** ')[0])
+    db_sess.close()
+
+    return users_ids_list
+
+
+def get_all_goods_ids():
+    db_sess = db_session.create_session()
+    all_goods_ids = []
+
+    for goods in db_sess.query(Goods).all():
+        all_goods_ids.append(goods.__repr__().split(' *** ')[0])
+    db_sess.close()
+
+    return all_goods_ids
+
+
 def create_user(login, password, email, status='usr', tgm='Z'):
     user = User()
+    user.id = int(get_all_users_ids()[-1]) + 1
     user.login = login
     user.hashed_password = password_crypt(password)
     user.email = email
@@ -95,17 +118,6 @@ def get_current_id(id):
         return i.__repr__().split(' *** ')[6]
 
 
-def get_all_users_ids():
-    db_sess = db_session.create_session()
-    users_ids_list = []
-
-    for user in db_sess.query(User).all():
-        users_ids_list.append(user.__repr__().split(' *** ')[0])
-    db_sess.close()
-
-    return users_ids_list
-
-
 def get_history_id(id):
     db_sess = db_session.create_session()
     for i in db_sess.query(User).filter(User.id == id):
@@ -136,6 +148,7 @@ def change_param(id, param, new_val):
 
 def create_goods(name, trader_id, category, description, photo, amount=0, sell_amount=0):
     goods = Goods()
+    goods.id = int(get_all_goods_ids()) + 1
     goods.name = name
     if str(trader_id) in get_all_users_ids():
         goods.trader_id = trader_id
@@ -143,6 +156,7 @@ def create_goods(name, trader_id, category, description, photo, amount=0, sell_a
     goods.photo = photo
     goods.amount = amount
     goods.sell_amount = sell_amount
+    print(goods)
     db_sess = db_session.create_session()
     db_sess.add(goods)
     db_sess.commit()
