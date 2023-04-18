@@ -19,6 +19,7 @@ def password_crypt(password):
 
 
 def password_encrypt(ipass):
+    print(ipass)
     shift = int(ipass[-1])
     password = ipass[:-1]
     ipass = ''
