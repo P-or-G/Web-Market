@@ -80,15 +80,13 @@ header {
 }
 
 .filt_btn {
-  background-color: 255 99 71;
   border: 1px solid green;
-  color: (255, 255, 255));
+  color: var(--color2);
   width: 200px;
   height: 200px;
   padding: 0px 0px;
-  text-align: center;
+  text-align: right;
   cursor: pointer;
-  padding-right: 50px;
   border-radius: 50%;
   font-size: 0.01px;
 }

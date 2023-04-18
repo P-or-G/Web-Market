@@ -1,12 +1,11 @@
-from msilib.schema import File
-from PIL import Image
+
 from flask import Flask, render_template, redirect
 from flask import url_for
 from flask import request
 
 app = Flask(__name__)
 
-data1 = open('static/img/profile.png', 'rb').read()
+data1 = "static/img/meats.jpg"
 a = [data1, data1, data1, 1]
 
 
@@ -29,12 +28,12 @@ def login():
 
 @app.route('/body', methods=['GET', 'POST'])
 def body():
-    with Image.open('static/img/profile.png') as img:
-        img.load()
-        if request.method == 'POST':
-            return render_template('body.html', spisok=a)
-        else:
-            return render_template('body.html', spisok=a, img='..img/add_cor.png')
+    if request.method == 'POST':
+        if request.form['btn'] == 'fruit':
+            print('adad')
+        return render_template('body.html', spisok=a)
+    else:
+        return render_template('body.html', spisok=a, lop=["static/img/meats.jpg", '123'])
 
 
 @app.route('/prod', methods=['GET', 'POST'])
