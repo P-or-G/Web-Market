@@ -10,10 +10,13 @@ class Goods(SqlAlchemyBase):
     name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     trader_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("users.id"))
     category = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    description = sqlalchemy.Column(sqlalchemy.String, index=True, unique=True, nullable=True)
-    photo_name = sqlalchemy.Column(sqlalchemy.String, index=True, unique=True, nullable=True)
+    description = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    photo_name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     amount = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    sell_amount = sqlalchemy.Column(sqlalchemy.String, index=True, unique=True, nullable=True)
+    sell_amount = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
     user = orm.relationship('User')
 
+    def __repr__(self):
+        return f'{self.id} *** {self.name} *** {self.trader_id} *** {self.category} *** {self.description} *** ' \
+               f'{self.photo_name} *** f{self.amount} *** f{self.sell_amount}'
