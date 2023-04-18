@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="my-1 text-center text-uppercase color2 mb-5">Мясо</h1>
+        </div>
+        <div class="row my-5">
+            <div class="col-md-4">
+                <img class="w-100" src="static/img/meats.jpg" title="Мясо">
+            </div>
+            <div class="col-md-8">
+                <h2 class="text-center">Описание</h2>
+                <h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum esse illo, quis fugiat quasi
+                    consequatur?
+                    Ad impedit ducimus provident, amet perspiciatis ullam cupiditate nobis illum accusamus ex ea non
+                    dolorem, dicta sapiente consequatur?<h2>
+            </div>
+            <div class="row my-5">
+                <div class="col-md-3">
+                    <input type="submit" class="prod_btn" src="static/img/add_fav.png" value="fav" readonly>
+                </div>
+                <div class="col-md-3">
+                    <input type="image" class="prod_btn" src="static/img/add_cor.png" name='btn' value="cor" readonly>
+                </div>
+            </div>
+        </div>
+{% endblock %}

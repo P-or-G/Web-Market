@@ -1,0 +1,20 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<form action="" method="post" novalidate>
+    <div class="container">
+         <div class="row text-center">
+         {% for item in spisok %}
+            {% if loop.index0 % 3 == 0 %}
+                </div>
+                <div class="row my-5 text-center">
+            {% endif %}
+            <div class="col-md-4">
+                <input type="submit" name="btn" class="btn filt_btn" value="fruit" readonly>
+                <img src="static/img/add_cor.png"></div>
+         {% endfor %}
+         </div>
+    </div>
+</form>
+{% endblock %}
