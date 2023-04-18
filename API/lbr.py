@@ -148,15 +148,12 @@ def change_param(id, param, new_val):
 
 def create_goods(name, trader_id, category, description, photo, amount=0, sell_amount=0):
     goods = Goods()
-    goods.id = int(get_all_goods_ids()) + 1
     goods.name = name
-    if str(trader_id) in get_all_users_ids():
-        goods.trader_id = trader_id
+    goods.trader_id = trader_id
     goods.description = description
     goods.photo = photo
     goods.amount = amount
     goods.sell_amount = sell_amount
-    print(goods)
     db_sess = db_session.create_session()
     db_sess.add(goods)
     db_sess.commit()

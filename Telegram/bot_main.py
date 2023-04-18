@@ -65,19 +65,13 @@ async def process_photo(message: types.Message):
 
     @dp.message_handler(state=AwaitMessages.goods_amo)
     async def name_process(msg: types.Message):
-        try:
-            full_inf.append(int(msg.text))
-            msg_text = f'На этом всё!'
-
-            state = dp.current_state(user=msg.from_user.id)
-            await state.set_state(AwaitMessages.normal)
-
-            await photo.download(destination_file=f'photos/{full_inf[0]}.jpg')
-
-            await msg.reply(msg_text)
-        except:
-            msg_text = f'Неккоректный ввод'
-
+        full_inf.append(int(msg.text))
+        msg_text = f'На этом всё!'
+        state = dp.current_state(user=msg.from_user.id)
+        create_goods(full_inf[0], ID, full_inf[1], full_inf[2], f'photos/{full_inf[0]}.jpg', amount=full_inf[3])
+        await state.set_state(AwaitMessages.normal)
+        await photo.download(destination_file=f'photos/{full_inf[0]}.jpg')
+        await msg.reply(msg_text)
 
 
 
