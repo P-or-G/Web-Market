@@ -46,7 +46,7 @@ def get_email(id=0, login=''):
     return None
 
 
-def get_id(login, email, password):
+def get_id(login, email, password, telegramm_id=0):
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(User.login == login, User.email == email).first()
 
@@ -56,6 +56,15 @@ def get_id(login, email, password):
 
     db_sess.close()
     return 'Неверный пароль'
+
+
+def get_id_teleg(teleg_id):
+    db_sess = db_session.create_session()
+    try:
+        user = db_sess.query(User).filter(User.telegram_id == teleg_id).first()
+        return user.__repr__().split(' *** ')[0], user.__repr__().split(' *** ')[4]
+    except:
+        return 0, usr
 
 
 def get_password(id):
@@ -86,6 +95,17 @@ def get_current_id(id):
         return i.__repr__().split(' *** ')[6]
 
 
+def get_all_users_ids():
+    db_sess = db_session.create_session()
+    users_ids_list = []
+
+    for user in db_sess.query(User).all():
+        users_ids_list.append(user.__repr__().split(' *** ')[0])
+    db_sess.close()
+
+    return users_ids_list
+
+
 def get_history_id(id):
     db_sess = db_session.create_session()
     for i in db_sess.query(User).filter(User.id == id):
@@ -110,5 +130,20 @@ def change_param(id, param, new_val):
         user.current_id = new_val
     elif param == 7:
         user.history_id = new_val
+    db_sess.commit()
+    db_sess.close()
+
+
+def create_goods(name, trader_id, category, description, photo, amount=0, sell_amount=0):
+    goods = Goods()
+    goods.name = name
+    if str(trader_id) in get_all_users_ids():
+        goods.trader_id = trader_id
+    goods.description = description
+    goods.photo = photo
+    goods.amount = amount
+    goods.sell_amount = sell_amount
+    db_sess = db_session.create_session()
+    db_sess.add(goods)
     db_sess.commit()
     db_sess.close()
