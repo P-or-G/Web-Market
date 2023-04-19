@@ -230,5 +230,5 @@ def get_all_user_goods(user_id):
     yep = int(user_id)
     for i in db_sess.query(Goods).filter(Goods.trader_id == yep):
         answer.append(str(i).replace("'", ''))
-    db_sess.close()
+    db_sess.close()а
     return answer
