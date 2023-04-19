@@ -1,6 +1,6 @@
 from API.lbr_settings import *
 
-db_session.global_init("db/all.db")
+db_session.global_init("../db/all.db")
 
 
 def get_all_users_ids():

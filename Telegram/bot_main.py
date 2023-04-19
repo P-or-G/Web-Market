@@ -92,9 +92,9 @@ async def process_photo(message: types.Message):
             full_inf.append(int(msg.text))
             msg_text = f'На этом всё!'
             state = dp.current_state(user=msg.from_user.id)
-            create_goods(full_inf[0], ID, full_inf[1], full_inf[3], f'photos/{full_inf[0]}.jpg', amount=full_inf[4], cost=full_inf[2])
+            create_goods(full_inf[0], ID, full_inf[1], full_inf[3], f'../static/photos/{full_inf[0]}.jpg', amount=full_inf[4], cost=full_inf[2])
             await state.set_state(AwaitMessages.normal)
-            await photo.download(destination_file=f'photos/{full_inf[0]}.jpg')
+            await photo.download(destination_file=f'../static/photos/{full_inf[0]}.jpg')
         except:
             msg_text = f'Неккоректный ввод'
 
