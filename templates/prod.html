@@ -5,25 +5,43 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h1 class="my-1 text-center text-uppercase color2 mb-5">Мясо</h1>
+            <h1 class="my-1 text-center text-uppercase color2 mb-5">{{name}}</h1>
         </div>
         <div class="row my-5">
             <div class="col-md-4">
-                <img class="w-100" src="static/img/meats.jpg" title="Мясо">
+                <img class="w-100" src="../../static/{{image}}" title="{{name}}">
             </div>
             <div class="col-md-8">
                 <h2 class="text-center">Описание</h2>
-                <h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum esse illo, quis fugiat quasi
-                    consequatur?
-                    Ad impedit ducimus provident, amet perspiciatis ullam cupiditate nobis illum accusamus ex ea non
-                    dolorem, dicta sapiente consequatur?<h2>
+                <h2 class="text-center">Цена за 1кг -- {{cost}} рублей</h2>
+                <h2>{{des}}<h2>
             </div>
             <div class="row my-5">
                 <div class="col-md-3">
-                    <input type="image" class="prod_btn" src="static/img/add_fav.png" value="fav" readonly>
+                    <input style="background-color: var(--color1);
+                                  background-image: url(../../static/img/add_fav.png);
+                                  border: 1px solid green;
+                                  color: var(--color2);
+                                  width: 80px;
+                                  height: 80px;
+                                  padding: 0px 0px;
+                                  text-align: right;
+                                  cursor: pointer;
+                                  border-radius: 50%;
+                                  font-size: 0.01px;" type="submit" class="prod_btn" name='btn' value="cor" readonly>
                 </div>
                 <div class="col-md-3">
-                    <input type="image" class="prod_btn" src="static/img/add_cor.png" name='btn' value="cor" readonly>
+                    <input style="background-color: var(--color1);
+                                  background-image: url(../../static/img/add_cor.png);
+                                  border: 1px solid green;
+                                  color: var(--color2);
+                                  width: 80px;
+                                  height: 80px;
+                                  padding: 0px 0px;
+                                  text-align: right;
+                                  cursor: pointer;
+                                  border-radius: 50%;
+                                  font-size: 0.01px;" type="submit" class="prod_btn" name='btn' value="cor" readonly>
                 </div>
             </div>
         </div>

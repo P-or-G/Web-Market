@@ -1,7 +1,6 @@
 from API.lbr_settings import *
 
-
-db_session.global_init("../db/all.db")
+db_session.global_init("db/all.db")
 
 
 def get_all_users_ids():
@@ -209,6 +208,7 @@ def get_goods_amo(id):
     db_sess.close()
     return goods.__repr__().split(' *** ')[6]
 
+
 def get_goods_sam(id):
     db_sess = db_session.create_session()
     yep = int(id)
@@ -216,12 +216,13 @@ def get_goods_sam(id):
     db_sess.close()
     return goods.__repr__().split(' *** ')[7]
 
+
 def get_goods_cost(id):
     db_sess = db_session.create_session()
     yep = int(id)
     goods = db_sess.query(Goods).filter(Goods.id == yep).first()
     db_sess.close()
-    return goods.__repr__().split(' *** ')[8]
+    return goods.__repr__().split(' *** ')[7]
 
 
 def get_all_user_goods(user_id):
@@ -230,5 +231,15 @@ def get_all_user_goods(user_id):
     yep = int(user_id)
     for i in db_sess.query(Goods).filter(Goods.trader_id == yep):
         answer.append(str(i).replace("'", ''))
-    db_sess.close()а
+    db_sess.close()
     return answer
+
+
+def get_all_goods_kat(kat):
+    right_ids = []
+    for id in get_all_goods_ids():
+        if get_goods_kat(id) == kat:
+            right_ids.append(id)
+    return right_ids
+
+
