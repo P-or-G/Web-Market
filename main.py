@@ -1,7 +1,7 @@
+
 from flask import Flask, render_template, redirect
 from flask import url_for
 from flask import request
-from API.lbr import *
 
 app = Flask(__name__)
 
@@ -10,11 +10,10 @@ a = [data1, data1, data1, 1]
 
 
 @app.route('/')
-@app.route('/main_page', methods=['GET', 'POST'], defaults={'user_id': 0})
-@app.route('/main_page/<int:user_id>', methods=['GET', 'POST'], defaults={'user_id': 0})
-def index(user_id):
+@app.route('/main_page', methods=['GET', 'POST'])
+def index():
     if request.method == 'POST':
-        return redirect(f'/body/{request.form["btn"]}/{user_id}')
+        return render_template('main_str.html')
     else:
         return render_template('main_str.html')
 
@@ -27,17 +26,18 @@ def login():
         return render_template('login.html')
 
 
-@app.route('/body/<value>/<int:user_id>', methods=['GET', 'POST'])
-def body(value, user_id):
+@app.route('/body', methods=['GET', 'POST'])
+def body():
     if request.method == 'POST':
-        return redirect(f'/prod/{request.form["btn"]}/{user_id}')
+        if request.form['btn'] == 'fruit':
+            print('adad')
+        return render_template('body.html', spisok=a)
     else:
-        return render_template('body.html', spisok=a, val=value)
+        return render_template('body.html', spisok=a, lop=["static/img/meats.jpg", '123'])
 
 
-@app.route('/prod/<value>/<user_id>', methods=['GET', 'POST'])
-def prod(value, user_id):
-    print(value)
+@app.route('/prod', methods=['GET', 'POST'])
+def prod():
     if request.method == 'POST':
         if request.form['btn'] == 'cor':
             print('aaa')
