@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form>
+    <div class="container">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Электронная почта</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">Вводите действующий адрес электронной почты</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Номер телефона</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="num">
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Пароль</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" name="pass">
+        </div>
+        <div class="mb-3">
+            <input type="submit" class="btn btn-success" value="SignIn" name="btn">
+            <input type="submit" class="btn btn-success text-right" value="Register" name="btn">
+        </div>
+</form>
+
+{% endblock %}
