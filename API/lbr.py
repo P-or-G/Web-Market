@@ -152,7 +152,7 @@ def create_goods(name, trader_id, category, description, photo, amount=0, sell_a
     goods.trader_id = trader_id
     goods.category = category
     goods.description = description
-    goods.photo = photo
+    goods.photo_name = photo
     goods.amount = amount
     goods.sell_amount = sell_amount
     goods.cost = cost
@@ -163,4 +163,62 @@ def create_goods(name, trader_id, category, description, photo, amount=0, sell_a
 
 
 def get_goods_name(id):
-    pass
+    db_sess = db_session.create_session()
+    yep = int(id)
+    goods = db_sess.query(Goods).filter(Goods.id == yep).first()
+    db_sess.close()
+    return goods.__repr__().split(' *** ')[1]
+
+
+def get_goods_seller(id):
+    db_sess = db_session.create_session()
+    yep = int(id)
+    goods = db_sess.query(Goods).filter(Goods.id == yep).first()
+    db_sess.close()
+    return goods.__repr__().split(' *** ')[2]
+
+
+def get_goods_kat(id):
+    db_sess = db_session.create_session()
+    yep = int(id)
+    goods = db_sess.query(Goods).filter(Goods.id == yep).first()
+    db_sess.close()
+    return goods.__repr__().split(' *** ')[3]
+
+
+def get_goods_des(id):
+    db_sess = db_session.create_session()
+    yep = int(id)
+    goods = db_sess.query(Goods).filter(Goods.id == yep).first()
+    db_sess.close()
+    return goods.__repr__().split(' *** ')[4]
+
+
+def get_goods_photo(id):
+    db_sess = db_session.create_session()
+    yep = int(id)
+    goods = db_sess.query(Goods).filter(Goods.id == yep).first()
+    db_sess.close()
+    return goods.__repr__().split(' *** ')[5]
+
+
+def get_goods_amo(id):
+    db_sess = db_session.create_session()
+    yep = int(id)
+    goods = db_sess.query(Goods).filter(Goods.id == yep).first()
+    db_sess.close()
+    return goods.__repr__().split(' *** ')[6]
+
+def get_goods_sam(id):
+    db_sess = db_session.create_session()
+    yep = int(id)
+    goods = db_sess.query(Goods).filter(Goods.id == yep).first()
+    db_sess.close()
+    return goods.__repr__().split(' *** ')[7]
+
+def get_goods_cost(id):
+    db_sess = db_session.create_session()
+    yep = int(id)
+    goods = db_sess.query(Goods).filter(Goods.id == yep).first()
+    db_sess.close()
+    return goods.__repr__().split(' *** ')[8]
