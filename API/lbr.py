@@ -1,7 +1,7 @@
 from API.lbr_settings import *
 
 
-db_session.global_init("../db/all.db")
+db_session.global_init("db/all.db")
 
 
 def get_all_users_ids():
@@ -230,5 +230,5 @@ def get_all_user_goods(user_id):
     yep = int(user_id)
     for i in db_sess.query(Goods).filter(Goods.trader_id == yep):
         answer.append(str(i).replace("'", ''))
-    db_sess.close()а
+    db_sess.close()
     return answer

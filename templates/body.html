@@ -10,7 +10,7 @@
                 <div class="row my-5 text-center">
             {% endif %}
             <div class="col-md-4">
-                <input style="background-image: url({{item}});
+                <input style="background-image: url(../../{{item}});
                               border: 1px solid green;
                               color: var(--color2);
                               width: 200px;
@@ -19,7 +19,7 @@
                               text-align: right;
                               cursor: pointer;
                               border-radius: 50%;
-                              font-size: 0.01px;" type="submit" name="btn" value="fruit" readonly></div>
+                              font-size: 0.01px;" type="submit" name="btn" value="{{val}}" readonly></div>
 
             {% endfor %}
         </div>
