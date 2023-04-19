@@ -150,6 +150,7 @@ def create_goods(name, trader_id, category, description, photo, amount=0, sell_a
     goods = Goods()
     goods.name = name
     goods.trader_id = trader_id
+    goods.category = category
     goods.description = description
     goods.photo = photo
     goods.amount = amount
@@ -159,3 +160,7 @@ def create_goods(name, trader_id, category, description, photo, amount=0, sell_a
     db_sess.add(goods)
     db_sess.commit()
     db_sess.close()
+
+
+def get_goods_name(id):
+    pass

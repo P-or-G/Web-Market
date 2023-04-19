@@ -62,14 +62,12 @@ async def process_photo(message: types.Message):
         await msg.reply(msg_text)
         state = dp.current_state(user=msg.from_user.id)
         await state.set_state(AwaitMessages.goods_des)
-        await msg.reply(msg_text)
 
 
     @dp.message_handler(state=AwaitMessages.goods_cost_2)
     async def name_process(msg: types.Message):
         full_inf = full_inf[:-1]
         msg_text = f'Введите цену'
-        await msg.reply(msg_text)
         state = dp.current_state(user=msg.from_user.id)
         await state.set_state(AwaitMessages.goods_des)
         await msg.reply(msg_text)
