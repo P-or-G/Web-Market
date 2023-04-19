@@ -243,3 +243,11 @@ def get_all_goods_kat(kat):
     return right_ids
 
 
+def get_earn(user_id):
+    db_sess = db_session.create_session()
+    answer = []
+    yep = int(user_id)
+    for i in db_sess.query(Goods).filter(Goods.trader_id == yep):
+        answer.append(int(str(i).replace("'", '').split(' *** ')[7]) * int(str(i).replace("'", '').split(' *** ')[8]))
+    db_sess.close()
+    return answer

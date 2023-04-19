@@ -1,11 +1,14 @@
-from API.lbr import get_id, change_param, get_status, get_login, get_id_teleg, create_goods
+import asyncio
+
+from API.lbr import get_id, change_param, get_status, get_login, get_id_teleg, create_goods, get_all_user_goods
+from API.lbr import get_earn
 from imp_control import *
 import keyboards as kbs
 from bot_funcs import *
 
 # -----------------------------------------------------
 
-token = '6130555686:AAHVqnlN6efSd3xASDtmTFmSxN82CaWXZTc'
+token = '6130555686:AAGsD-0cL4dKOOZx2rX8w8khNosdkxwTYXg'
 bot = Bot(token)
 dp = Dispatcher(bot, storage=MemoryStorage())
 # Объект бота
@@ -13,6 +16,7 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 
 class AwaitMessages(StatesGroup):
     login = State()
+    photo = State()
     normal = State()
     not_allowed = State()
     goods_cost = State()
@@ -26,26 +30,86 @@ dp.middleware.setup(LoggingMiddleware())
 # -----------------------------------------------------
 
 
+@dp.message_handler(commands=['start'])
+async def cmd_start(message: types.Message):
+    state = dp.current_state(user=message.from_user.id)
+
+    if get_id_teleg(message.from_user.id)[1] != 'usr':
+        await state.set_state(AwaitMessages.normal)
+        msg_text = f'С возвращением {get_login(get_id_teleg(message.from_user.id)[0])}!'
+        await message.reply(msg_text)
+        return None
+
+    await state.set_state(AwaitMessages.login)
+
+    msg_text = f'Здравствуйте {message.from_user.first_name}, чтобы пользоваться функционалом бота, ' \
+               f'необходимо войти в свой аккаунт.\n' \
+               f'Для этого введите ваш логин, email и пароль через пробел.\n' \
+               f'При появлении вопросов воспользуйтесь командой /help'
+
+    await message.reply(msg_text)
+
+
+@dp.message_handler(commands=['help'], state=AwaitMessages.normal)
+async def cmd_help(message: types.Message):
+    msg_text = f'Этот бот создан для быстрого просмотра статистики продаж для продавцов.\nСписок команд:\n' \
+               f'/goods - посмотреть список ваших товаров\n' \
+               f'/goods_sells - посмотреть продажи ваших товаров\n' \
+               f'/earnings - посмотреть вашу прибль\n' \
+               f'Чтобы добавить новый товар нужно отправить его фотографию боту, а далее следовать указаниям.'
+
+    await message.reply(msg_text)
+
+
+@dp.message_handler(commands=['goods_sells'], state=AwaitMessages.normal)
+async def cmd_help(message: types.Message):
+    ID = get_id_teleg(message.from_user.id)[0]
+    x = ''
+    for i in get_all_user_goods(ID):
+        x += '\n' + i.split(' *** ')[1] + ' - ' + i.split(' *** ')[7] + ' продано'
+    msg_text = f'Продажи ваших товаров:{x}'
+
+    await message.reply(msg_text)
+
+
+@dp.message_handler(commands=['earnings'], state=AwaitMessages.normal)
+async def cmd_help(message: types.Message):
+    ID = get_id_teleg(message.from_user.id)[0]
+    x = ''
+    cou = 0
+    for i in get_all_user_goods(ID):
+        x += i.split(' *** ')[1] + ' - ' +  str(get_earn(ID)[cou]) + '\n'
+        cou += 1
+    msg_text = f'Продажи ваших товаров:\n{x}Общая сумма: {sum(get_earn(ID))}'
+
+    await message.reply(msg_text)
+
+
 @dp.message_handler(content_types=['photo'], state=AwaitMessages.normal)
 async def process_photo(message: types.Message):
+    state = dp.current_state(user=message.from_user.id)
+    await state.set_state(AwaitMessages.photo)
+
     full_inf = []
     photo = message.photo[3]
     ID = get_id_teleg(message.from_user.id)[0]
 
     msg_text = f'Отличная фотография!\nЧтобы закончить загрузку товара, вам необходимо указать\n' \
-               f'Название товара, категорию товара, описание и его количество.\n' \
-               f'Введите название'
+               f'Название товара, категорию товара, описание и его количество.'
+    await message.reply(msg_text)
+    await asyncio.sleep(1)
+    msg_text = f'Введите название'
     await message.reply(msg_text)
 
 
-    @dp.message_handler(state=AwaitMessages.normal)
+    @dp.message_handler(state=AwaitMessages.photo)
     async def name_process(msg: types.Message):
         full_inf.append(msg.text)
         msg_text = f'Теперь выберите категорию, нажав на кнопку.'
         await msg.reply(msg_text, reply_markup=kbs.category_choose_menu)
 
 
-    @dp.callback_query_handler(state=AwaitMessages.normal)
+    @dp.callback_query_handler(state=AwaitMessages.photo)
     async def cat_process(callback_query: types.CallbackQuery):
         full_inf.append(callback_query.data)
         msg_text = f'Опишите ваш товар'
@@ -92,41 +156,13 @@ async def process_photo(message: types.Message):
             full_inf.append(int(msg.text))
             msg_text = f'На этом всё!'
             state = dp.current_state(user=msg.from_user.id)
-            create_goods(full_inf[0], ID, full_inf[1], full_inf[3], f'../static/photos/{full_inf[0]}.jpg', amount=full_inf[4], cost=full_inf[2])
+            create_goods(full_inf[0], ID, full_inf[1], full_inf[2], f'../static/photos/{full_inf[0]}.jpg', amount=full_inf[4], cost=full_inf[3])
             await state.set_state(AwaitMessages.normal)
             await photo.download(destination_file=f'../static/photos/{full_inf[0]}.jpg')
         except:
             msg_text = f'Неккоректный ввод'
 
         await msg.reply(msg_text)
-
-
-
-@dp.message_handler(commands=['start'])
-async def cmd_start(message: types.Message):
-    state = dp.current_state(user=message.from_user.id)
-
-    if get_id_teleg(message.from_user.id)[1] != 'usr':
-        await state.set_state(AwaitMessages.normal)
-        msg_text = f'С возвращением {get_login(get_id_teleg(message.from_user.id)[0])}!'
-        await message.reply(msg_text)
-        return None
-
-    await state.set_state(AwaitMessages.login)
-
-    msg_text = f'Здравствуйте {message.from_user.first_name}, чтобы пользоваться функционалом бота, ' \
-               f'необходимо войти в свой аккаунт.\n' \
-               f'Для этого введите ваш логин, email и пароль через пробел.\n' \
-               f'При появлении вопросов воспользуйтесь командой /help'
-
-    await message.reply(msg_text)
-
-
-@dp.message_handler(commands=['help'])
-async def cmd_help(message: types.Message):
-    msg_text = f'Этот бот создан для быстрого просмотра статистики продаж для продавцов.\nСписок команд:'
-
-    await message.reply(msg_text)
 
 
 @dp.callback_query_handler(text='help')
@@ -173,10 +209,6 @@ async def login(message: types.Message):
     if msg_text != '':
         await message.reply(msg_text)
 
-
-@dp.message_handler()
-async def process_photo(message: types.Message):
-    print(message.content_type)
 
 if __name__ == '__main__':
     executor.start_polling(dp)
