@@ -222,3 +222,13 @@ def get_goods_cost(id):
     goods = db_sess.query(Goods).filter(Goods.id == yep).first()
     db_sess.close()
     return goods.__repr__().split(' *** ')[8]
+
+
+def get_all_user_goods(user_id):
+    db_sess = db_session.create_session()
+    answer = []
+    yep = int(user_id)
+    for i in db_sess.query(Goods).filter(Goods.trader_id == yep):
+        answer.append(str(i).replace("'", ''))
+    db_sess.close()
+    return answer
