@@ -15,6 +15,8 @@ class AwaitMessages(StatesGroup):
     login = State()
     normal = State()
     not_allowed = State()
+    goods_cost = State()
+    goods_cost_2 = State()
     goods_des = State()
     goods_amo = State()
 
@@ -50,27 +52,54 @@ async def process_photo(message: types.Message):
         await bot.send_message(callback_query.from_user.id, msg_text)
 
         state = dp.current_state(user=callback_query.from_user.id)
+        await state.set_state(AwaitMessages.goods_cost)
+
+
+    @dp.message_handler(state=AwaitMessages.goods_cost)
+    async def name_process(msg: types.Message):
+        full_inf.append(msg.text)
+        msg_text = f'Введите цену'
+        await msg.reply(msg_text)
+        state = dp.current_state(user=msg.from_user.id)
         await state.set_state(AwaitMessages.goods_des)
+        await msg.reply(msg_text)
+
+
+    @dp.message_handler(state=AwaitMessages.goods_cost_2)
+    async def name_process(msg: types.Message):
+        full_inf = full_inf[:-1]
+        msg_text = f'Введите цену'
+        await msg.reply(msg_text)
+        state = dp.current_state(user=msg.from_user.id)
+        await state.set_state(AwaitMessages.goods_des)
+        await msg.reply(msg_text)
 
 
     @dp.message_handler(state=AwaitMessages.goods_des)
     async def name_process(msg: types.Message):
-        full_inf.append(msg.text)
-        msg_text = f'Осталось лишь ввести количество'
+        try:
+            full_inf.append(int(msg.text))
+            msg_text = f'Осталось лишь ввести количество'
+            state = dp.current_state(user=msg.from_user.id)
+            await state.set_state(AwaitMessages.goods_amo)
+        except:
+            msg_text = f'Неккоректный ввод'
+            await state.set_state(AwaitMessages.goods_cost_2)
         await msg.reply(msg_text)
-
-        state = dp.current_state(user=msg.from_user.id)
-        await state.set_state(AwaitMessages.goods_amo)
 
 
     @dp.message_handler(state=AwaitMessages.goods_amo)
     async def name_process(msg: types.Message):
-        full_inf.append(int(msg.text))
-        msg_text = f'На этом всё!'
-        state = dp.current_state(user=msg.from_user.id)
-        create_goods(full_inf[0], ID, full_inf[1], full_inf[2], f'photos/{full_inf[0]}.jpg', amount=full_inf[3])
-        await state.set_state(AwaitMessages.normal)
-        await photo.download(destination_file=f'photos/{full_inf[0]}.jpg')
+        try:
+            full_inf.append(int(msg.text))
+            msg_text = f'На этом всё!'
+            state = dp.current_state(user=msg.from_user.id)
+            create_goods(full_inf[0], ID, full_inf[1], full_inf[3], f'photos/{full_inf[0]}.jpg', amount=full_inf[4], cost=full_inf[2])
+            await state.set_state(AwaitMessages.normal)
+            await photo.download(destination_file=f'photos/{full_inf[0]}.jpg')
+        except:
+            msg_text = f'Неккоректный ввод'
+
         await msg.reply(msg_text)
 
 

@@ -146,7 +146,7 @@ def change_param(id, param, new_val):
     db_sess.close()
 
 
-def create_goods(name, trader_id, category, description, photo, amount=0, sell_amount=0):
+def create_goods(name, trader_id, category, description, photo, amount=0, sell_amount=0, cost=0):
     goods = Goods()
     goods.name = name
     goods.trader_id = trader_id
@@ -154,6 +154,7 @@ def create_goods(name, trader_id, category, description, photo, amount=0, sell_a
     goods.photo = photo
     goods.amount = amount
     goods.sell_amount = sell_amount
+    goods.cost = cost
     db_sess = db_session.create_session()
     db_sess.add(goods)
     db_sess.commit()

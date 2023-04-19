@@ -14,6 +14,7 @@ class Goods(SqlAlchemyBase):
     photo_name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     amount = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     sell_amount = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    cost = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
 
     user = orm.relationship('User')
 
