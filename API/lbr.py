@@ -232,4 +232,3 @@ def get_all_user_goods(user_id):
         answer.append(str(i).replace("'", ''))
     db_sess.close()
     return answer
-
