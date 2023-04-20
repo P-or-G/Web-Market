@@ -21,7 +21,7 @@ class LogIn(QDialog):
         global login_id
         login_id = self.login
 
-        con = sqlite3.connect("..db/all.db")
+        con = sqlite3.connect("../db/all.db")
         cur = con.cursor()
         result = cur.execute("""SELECT login, hashed_password, status, id FROM users""").fetchall()
         con.close()
@@ -43,7 +43,7 @@ class WindowForSalesman(QMainWindow):
         super().__init__()
         uic.loadUi('window_for_salesman.ui', self)  # Загружаем дизайн
 
-        self.connection = sqlite3.connect("..db/all.db")
+        self.connection = sqlite3.connect("../db/all.db")
 
         self.btn_add.clicked.connect(self.open_window_for_add_product)
         self.btn_r.clicked.connect(self.update)
@@ -98,7 +98,7 @@ class AddProducts(QDialog):
         self.number_product = 0
         self.category_product = ''
         self.sale = 0.0
-        self.con = sqlite3.connect('..db/all.db')
+        self.con = sqlite3.connect('../db/all.db')
 
         self.btn_add.clicked.connect(self.add_product)
 
@@ -127,7 +127,7 @@ class WindowForAdmin(QMainWindow):
         super().__init__()
         uic.loadUi('window_for_admin.ui', self)  # Загружаем дизайн
 
-        self.connection = sqlite3.connect("..db/all.db")
+        self.connection = sqlite3.connect("../db/all.db")
 
         self.btn_add.clicked.connect(self.open_window_for_add_salesman)
         self.btn_r.clicked.connect(self.update)
@@ -181,7 +181,7 @@ class AddSalesman(QDialog):
         self.phone_number = ''
 
         self.btn_add.clicked.connect(self.add_salesman)
-        self.con = sqlite3.connect('..db/all.db')
+        self.con = sqlite3.connect('../db/all.db')
 
     def add_salesman(self):
         if self.Login.text() != '' and self.Password.text() != "" and self.Email.text() != '' and\
