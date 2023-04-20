@@ -33,21 +33,6 @@ header {
   justify-content: right;
   align-items: right;
 }
-.btn-group button {
-  display: flex;
-  justify-content: right;
-  background-color: var(--color1);
-  border: 1px solid green;
-  color: var(--color2);
-  width: 60px;
-  height: 60px;
-  padding: 3px 0px;
-  cursor: pointer;
-  margin: 0 0.5%;
-  padding-right: 50px;
-  border-radius: 50%;
-  float: right;
-}
 
 
 .all_btn {
@@ -82,6 +67,7 @@ header {
 .filt_btn {
   border: 1px solid green;
   color: var(--color2);
+  background-color: var(--color1);
   width: 200px;
   height: 200px;
   padding: 0px 0px;
@@ -89,24 +75,20 @@ header {
   cursor: pointer;
   border-radius: 50%;
   font-size: 0.01px;
+  justify-content: right;
 }
 
-
-
-.btn-group button:not(:last-child) {
-  border-right: none;
-}
-
-
-.btn-group:after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-
-.btn-group button:hover {
-  background-color: #3e8e41;
+.filt_btn_sh {
+  border: 1px solid green;
+  background-color: var(--color1);
+  width: 60px;
+  height: 60px;
+  padding: 0px 0px;
+  text-align: right;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 0.01px;
+  justify-content: right;
 }
 
 .profile {
@@ -114,6 +96,7 @@ header {
 }
 
 .basket {
+  background-color: var(--color1);
   background: url(../img/basket.png) no-repeat center center;
 }
 

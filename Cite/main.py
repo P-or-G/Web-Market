@@ -14,15 +14,30 @@ a = [data1, data1, data1, 1]
 @app.route('/main_page/<int:user_id>', methods=['GET', 'POST'], defaults={'user_id': 0})
 def index(user_id):
     if request.method == 'POST':
-        return redirect(f'/body/{request.form["btn"]}/{user_id}')
+        if request.form['btn'] == 'cors':
+            return redirect(f'/body/{request.form["btn"]}/{user_id}')
+        elif request.form['btn'] == 'fav':
+            print('fav')
+        elif request.form['btn'] == 'prof':
+            print('peof')
+        elif request.form['btn'] == 'milk':
+            return redirect(f'/login/{user_id}')
+        else:
+            return redirect(f'/body/{request.form["btn"]}/{user_id}')
     else:
         return render_template('main_str.html')
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
+@app.route('/login/<int:user_id>', methods=['GET', 'POST'])
+def login(user_id):
     if request.method == 'POST':
-        pass
+        if request.form['btn'] == 'Register':
+            create_user(request.form['num'], request.form['pass'], request.form['email'], 'usr')
+            return redirect(f'/main_page/{get_all_users_ids()[-1]}')
+        else:
+            return redirect(f'/login/{user_id}')
+    elif user_id != 0:
+        return redirect(f'/main_page/{user_id}')
     else:
         return render_template('login.html')
 
