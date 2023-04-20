@@ -8,7 +8,7 @@ from bot_funcs import *
 
 # -----------------------------------------------------
 
-token = '6130555686:AAGsD-0cL4dKOOZx2rX8w8khNosdkxwTYXg'
+token = '6130555686:AAGPuRL1iDgYc0J4BBRIAbbWa-Gyr5EFG7o'
 bot = Bot(token)
 dp = Dispatcher(bot, storage=MemoryStorage())
 # Объект бота

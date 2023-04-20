@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>371</width>
+    <height>410</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: qlineargradient(spread:pad, x1:0.489, y1:1, x2:0.489, y2:0, stop:0.511364 rgba(133, 255, 131, 210), stop:1 rgba(255, 255, 255, 255));</string>
+  </property>
+  <widget class="QLabel" name="label_1">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>141</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(240, 255, 240);
+font: 10pt &quot;Verdana&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Название товара -&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="NameProduct">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>20</y>
+     <width>151</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(170, 255, 164);</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>70</y>
+     <width>151</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(213, 255, 212);
+font: 10pt &quot;Verdana&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Описанние товара -&gt;</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="NumberProduct">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>220</y>
+     <width>151</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(170, 255, 164);
+font: 10pt &quot;Verdana&quot;;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>230</y>
+     <width>151</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(134, 255, 132);
+font: 10pt &quot;Verdana&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Количество товара -&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>290</y>
+     <width>151</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(134, 255, 132);
+font: 10pt &quot;Verdana&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Категория товара -&gt;</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_add">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>350</y>
+     <width>91</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(170, 255, 164);
+font: 10pt &quot;Verdana&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Добавить</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="Category">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>290</y>
+     <width>151</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>Мясо</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Рыба</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Молочка</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Фрукты</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Овощи</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Корм для животных</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Косметика</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Другое</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLineEdit" name="LorProduct">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>70</y>
+     <width>151</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(170, 255, 164);</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>110</y>
+     <width>151</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(187, 255, 186);
+font: 10pt &quot;Verdana&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Цена за штуку  -&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="Sale">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>110</y>
+     <width>151</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(170, 255, 164);</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
