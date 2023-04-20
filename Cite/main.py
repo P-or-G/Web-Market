@@ -16,13 +16,15 @@ def index(user_id):
     if request.method == 'POST':
         print(user_id)
         if request.form['btn'] == 'cors':
-            return None
-        elif request.form['btn'] == 'fav':
+            return redirect(f'/body/cors/{user_id}')
+        elif request.form['btn'] == 'prof':
             if user_id != 0:
                 return redirect(f'/body/fav/{user_id}')
             else:
                 return redirect(f'/login/{user_id}')
-        return redirect(f'/body/{request.form["btn"]}/{user_id}')
+        elif request.form['btn'] == 'fav':
+            return redirect(f'body/fav/{user_id}')
+        return redirect(f'body/{request.form["btn"]}/{user_id}')
     else:
         return render_template('main_str.html')
 
@@ -48,7 +50,10 @@ def login(user_id):
 
 @app.route('/body/<value>/<int:user_id>', methods=['GET', 'POST'])
 def body(value, user_id):
-    ids = get_all_goods_kat(value)
+    if value == 'fav':
+        ids = list(map(int, get_current_id(user_id).split(', ')))
+    else:
+        ids = get_all_goods_kat(value)
     sp = [(get_goods_photo(id), id) for id in ids]
     if request.method == 'POST':
         return redirect(f'/prod/{request.form["btn"]}/{user_id}')
@@ -63,10 +68,23 @@ def prod(value, user_id):
     cost = get_goods_cost(value)
     name = get_goods_name(value)
     if request.method == 'POST':
-        if request.form['btn'] == 'cor':
+        if request.form['btn'] == 'add_cor':
             if user_id != 0:
                 pass
-        return render_template('body.html', spisok=a)
+            else:
+                cors = get_current_id(user_id)
+                cors.append(value)
+                change_param(user_id, 6, cors)
+                return redirect(f'/main_page/{user_id}')
+        elif request.form['btn'] == 'add_cor':
+            if user_id != 0:
+                pass
+            else:
+                cors = get_history_id(user_id)
+                cors.append(value)
+                change_param(user_id, 7, cors)
+                return redirect(f'/main_page/{user_id}')
+        return redirect(f'/main_page/{user_id}')
     else:
         return render_template('prod.html', image=image, cost=cost, des=des, name=name)
 

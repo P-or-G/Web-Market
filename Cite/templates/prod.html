@@ -2,6 +2,7 @@
 
 {% block content %}
 
+<form action="" method="post" novalidate>
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -28,7 +29,7 @@
                                   text-align: right;
                                   cursor: pointer;
                                   border-radius: 50%;
-                                  font-size: 0.01px;" type="submit" class="prod_btn" name='btn' value="cor" readonly>
+                                  font-size: 0.01px;" type="submit" class="prod_btn" name='btn' value="add_fav" readonly>
                 </div>
                 <div class="col-md-3">
                     <input style="background-color: var(--color1);
@@ -41,8 +42,9 @@
                                   text-align: right;
                                   cursor: pointer;
                                   border-radius: 50%;
-                                  font-size: 0.01px;" type="submit" class="prod_btn" name='btn' value="cor" readonly>
+                                  font-size: 0.01px;" type="submit" class="prod_btn" name='btn' value="add_cor" readonly>
                 </div>
             </div>
         </div>
+</form>
 {% endblock %}
