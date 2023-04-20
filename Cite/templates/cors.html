@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="" method="post" novalidate>
+    <div class="container">
+        <div class="row text-center">
+            {% for item in spisok %}
+            {% if loop.index0 % 3 == 0 %}
+                </div>
+                <div class="row my-5 text-center">
+            {% endif %}
+            <div class="col-md-4">
+                <input style="background-image: url(../../static/{{item[0]}});
+                              border: 1px solid green;
+                              color: var(--color2);
+                              width: 200px;
+                              height: 200px;
+                              padding: 0px 0px;
+                              text-align: center;
+                              cursor: pointer;
+                              border-radius: 50%;
+                              font-size: 0.01px;" type="text" name="btn" value="{{item[1]}}" readonly></div>
+
+            {% endfor %}
+        </div>
+        <div class="row mg-5">
+            <div class="col-md-12">
+                <input type="submit" class="btn btn-danger" value="Купить" name="btn">
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
