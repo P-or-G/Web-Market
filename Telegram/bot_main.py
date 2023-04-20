@@ -102,7 +102,7 @@ async def process_photo(message: types.Message):
     await state.set_state(AwaitMessages.photo)
 
     full_inf = []
-    photo = message.photo[3]
+    photo = message.photo[-1]
     ID = get_id_teleg(message.from_user.id)[0]
 
     msg_text = f'Отличная фотография!\nЧтобы закончить загрузку товара, вам необходимо указать\n' \
