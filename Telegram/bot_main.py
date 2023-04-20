@@ -72,6 +72,17 @@ async def cmd_help(message: types.Message):
     await message.reply(msg_text)
 
 
+@dp.message_handler(commands=['goods'], state=AwaitMessages.normal)
+async def cmd_help(message: types.Message):
+    ID = get_id_teleg(message.from_user.id)[0]
+    x = 'Ваши товары:'
+    for i in get_all_user_goods(ID):
+        x += '\n' + i.split(' *** ')[1]
+    msg_text = x
+
+    await message.reply(msg_text)
+
+
 @dp.message_handler(commands=['earnings'], state=AwaitMessages.normal)
 async def cmd_help(message: types.Message):
     ID = get_id_teleg(message.from_user.id)[0]
