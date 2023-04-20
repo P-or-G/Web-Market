@@ -34,11 +34,14 @@ dp.middleware.setup(LoggingMiddleware())
 async def cmd_start(message: types.Message):
     state = dp.current_state(user=message.from_user.id)
 
-    if get_id_teleg(message.from_user.id)[1] != 'usr':
-        await state.set_state(AwaitMessages.normal)
-        msg_text = f'С возвращением {get_login(get_id_teleg(message.from_user.id)[0])}!'
-        await message.reply(msg_text)
-        return None
+    try:
+        if get_id_teleg(message.from_user.id)[1] != 'usr':
+            await state.set_state(AwaitMessages.normal)
+            msg_text = f'С возвращением {get_login(get_id_teleg(message.from_user.id)[0])}!'
+            await message.reply(msg_text)
+            return None
+    except:
+        pass
 
     await state.set_state(AwaitMessages.login)
 
