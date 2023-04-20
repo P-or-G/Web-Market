@@ -13,17 +13,23 @@ a = [data1, data1, data1, 1]
 @app.route('/main_page', methods=['GET', 'POST'], defaults={'user_id': 0})
 @app.route('/main_page/<int:user_id>', methods=['GET', 'POST'])
 def index(user_id):
+    print(user_id)
     if request.method == 'POST':
-        print(user_id)
         if request.form['btn'] == 'cors':
-            return redirect(f'/body/cors/{user_id}')
+            if user_id == 0:
+                return redirect(f'/main_page/{user_id}')
+            return redirect(f'/cors/{user_id}')
         elif request.form['btn'] == 'prof':
             if user_id != 0:
-                return redirect(f'/body/fav/{user_id}')
+                return redirect(f'/main_page/{user_id}')
             else:
                 return redirect(f'/login/{user_id}')
         elif request.form['btn'] == 'fav':
-            return redirect(f'body/fav/{user_id}')
+            print(user_id != 0)
+            if user_id == 0:
+                return redirect(f'/main_page/{user_id}')
+            else:
+                return redirect(f'/body/fav/{user_id}')
         return redirect(f'body/{request.form["btn"]}/{user_id}')
     else:
         return render_template('main_str.html')
@@ -48,10 +54,23 @@ def login(user_id):
         return render_template('login.html')
 
 
+@app.route('/cors/<int:user_id>', methods=['GET', 'POST'])
+def cors(user_id):
+    ids = list(map(int, get_history_id(user_id).split(', ')))
+    print(ids)
+    sp = [(get_goods_photo(id), id) for id in ids]
+    if request.method == 'POST':
+        return redirect(f'/main_page/{user_id}')
+    else:
+        return render_template('cors.html', spisok=ids)
+
+
 @app.route('/body/<value>/<int:user_id>', methods=['GET', 'POST'])
 def body(value, user_id):
     if value == 'fav':
-        ids = list(map(int, get_current_id(user_id).split(', ')))
+        if user_id != 0:
+            ids = list(map(int, get_current_id(user_id).split(', ')))
+            print(ids)
     else:
         ids = get_all_goods_kat(value)
     sp = [(get_goods_photo(id), id) for id in ids]

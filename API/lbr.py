@@ -29,10 +29,10 @@ def create_user(login, password, email, status='usr', tgm='Z'):
     user = User()
     user.id = int(get_all_users_ids()[-1]) + 1
     user.login = login
-    user.hashed_password = password_crypt(password)
+    user.hashed_password = password_crypt(str(password))
     user.email = email
     user.status = status
-    user.history_id = []
+    user.history_id = ''
     if tgm != 'Z':
         user.telegram_id = tgm
     db_sess = db_session.create_session()
@@ -144,7 +144,7 @@ def change_param(id, param, new_val):
     elif param == 6:
         user.current_id = new_val
     elif param == 7:
-        user.history_id = eval(user.history_id + new_val)
+        user.history_id = user.history_id + ', '.join(map(str, new_val))
     db_sess.commit()
     db_sess.close()
 
