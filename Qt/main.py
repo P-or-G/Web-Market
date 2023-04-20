@@ -1,6 +1,7 @@
 import sys
 import sqlite3
 
+from Special.password_hash import password_encrypt
 from PyQt5 import uic  # Импортируем uic
 from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QTableWidgetItem
 
@@ -21,17 +22,17 @@ class LogIn(QDialog):
         global login_id
         login_id = self.login
 
-        con = sqlite3.connect("all.db")
+        con = sqlite3.connect("../db/all.db")
         cur = con.cursor()
         result = cur.execute("""SELECT login, hashed_password, status, id FROM users""").fetchall()
         con.close()
 
         for el in result:
-            if self.login == el[0] and self.password == el[1]:
+            if self.login == el[0] and self.password == password_encrypt(el[1]):
                 login_id = el[3]
                 if el[2] == 'trd':
                     ex4.show()
-                else:
+                elif el[2] == 'adm':
                     ex1.show()
             else:
                 print('Неверный логин или пароль!')
@@ -44,7 +45,7 @@ class WindowForSalesman(QMainWindow):
         super().__init__()
         uic.loadUi('window_for_salesman.ui', self)  # Загружаем дизайн
 
-        self.connection = sqlite3.connect("all.db")
+        self.connection = sqlite3.connect("../db/all.db")
 
         self.btn_add.clicked.connect(self.open_window_for_add_product)
         self.btn_r.clicked.connect(self.update)
@@ -73,6 +74,7 @@ class WindowForSalesman(QMainWindow):
         # с базой данных
         self.connection.close()
 
+
     def open_window_for_add_product(self):
         ex2.show()
 
@@ -99,7 +101,7 @@ class AddProducts(QDialog):
         self.number_product = 0
         self.category_product = ''
         self.sale = 0.0
-        self.con = sqlite3.connect('all.db')
+        self.con = sqlite3.connect('../db/all.db')
 
         self.btn_add.clicked.connect(self.add_product)
 
