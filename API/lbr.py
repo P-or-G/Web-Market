@@ -145,7 +145,6 @@ def change_param(id, param, new_val):
         user.current_id = new_val
     elif param == 7:
         user.history_id = user.history_id + ', '.join(map(str, new_val))
-        print(user.history_id)
     db_sess.commit()
     db_sess.close()
 
@@ -256,8 +255,3 @@ def get_earn(user_id):
         answer.append(int(str(i).replace("'", '').split(' *** ')[7]) * int(str(i).replace("'", '').split(' *** ')[8]))
     db_sess.close()
     return answer
-
-
-print(change_param(3, 7, [7, 8, 5]))
-print(get_history_id(3))
-
