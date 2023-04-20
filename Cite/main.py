@@ -15,15 +15,13 @@ a = [data1, data1, data1, 1]
 def index(user_id):
     if request.method == 'POST':
         if request.form['btn'] == 'cors':
-            return redirect(f'/body/{request.form["btn"]}/{user_id}')
+            return None
         elif request.form['btn'] == 'fav':
-            print('fav')
-        elif request.form['btn'] == 'prof':
-            print('peof')
-        elif request.form['btn'] == 'milk':
-            return redirect(f'/login/{user_id}')
-        else:
-            return redirect(f'/body/{request.form["btn"]}/{user_id}')
+            if user_id != 0:
+                return redirect(f'/body/fav/{user_id}')
+            else:
+                return redirect(f'/login/{user_id}')
+        return redirect(f'/body/{request.form["btn"]}/{user_id}')
     else:
         return render_template('main_str.html')
 
@@ -34,8 +32,12 @@ def login(user_id):
         if request.form['btn'] == 'Register':
             create_user(request.form['num'], request.form['pass'], request.form['email'], 'usr')
             return redirect(f'/main_page/{get_all_users_ids()[-1]}')
-        else:
-            return redirect(f'/login/{user_id}')
+        if request.form["btn"] == 'SignIn':
+            if get_id(request.form['num'], request.form['email'], request.form['pass']) != "Неверный пароль":
+                return redirect(f'/login/{user_id}')
+            else:
+                user_id = get_id(request.form['num'], request.form['email'], request.form['pass'])
+                redirect(f'/main_page/{user_id}')
     elif user_id != 0:
         return redirect(f'/main_page/{user_id}')
     else:
