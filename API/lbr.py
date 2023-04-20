@@ -72,9 +72,12 @@ def get_id(login, email, password, telegramm_id=0):
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(User.login == login, User.email == email).first()
 
-    if password_encrypt(user.__repr__().split(' *** ')[3]) == password:
-        db_sess.close()
-        return user.__repr__().split(' *** ')[0]
+    try:
+        if password_encrypt(user.__repr__().split(' *** ')[3]) == password:
+            db_sess.close()
+            return user.__repr__().split(' *** ')[0]
+    except:
+        print('аккуратнее')
 
     db_sess.close()
     return 'Неверный пароль'
