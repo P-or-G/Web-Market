@@ -11,9 +11,10 @@ a = [data1, data1, data1, 1]
 
 @app.route('/')
 @app.route('/main_page', methods=['GET', 'POST'], defaults={'user_id': 0})
-@app.route('/main_page/<int:user_id>', methods=['GET', 'POST'], defaults={'user_id': 0})
+@app.route('/main_page/<int:user_id>', methods=['GET', 'POST'])
 def index(user_id):
     if request.method == 'POST':
+        print(user_id)
         if request.form['btn'] == 'cors':
             return None
         elif request.form['btn'] == 'fav':
@@ -33,11 +34,12 @@ def login(user_id):
             create_user(request.form['num'], request.form['pass'], request.form['email'], 'usr')
             return redirect(f'/main_page/{get_all_users_ids()[-1]}')
         if request.form["btn"] == 'SignIn':
-            if get_id(request.form['num'], request.form['email'], request.form['pass']) != "Неверный пароль":
+            if 'Неверный пароль' in get_id(request.form['num'], request.form['email'], request.form['pass']):
                 return redirect(f'/login/{user_id}')
             else:
-                user_id = get_id(request.form['num'], request.form['email'], request.form['pass'])
-                redirect(f'/main_page/{user_id}')
+                user_id = int(get_id(request.form['num'], request.form['email'], request.form['pass']))
+                return redirect(f'/main_page/{user_id}')
+        return redirect(f'/main_page/{user_id}')
     elif user_id != 0:
         return redirect(f'/main_page/{user_id}')
     else:
@@ -56,7 +58,6 @@ def body(value, user_id):
 
 @app.route('/prod/<value>/<user_id>', methods=['GET', 'POST'])
 def prod(value, user_id):
-    print(value)
     image = get_goods_photo(value)
     des = get_goods_des(value)
     cost = get_goods_cost(value)
