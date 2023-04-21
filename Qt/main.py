@@ -1,6 +1,7 @@
 import sys
 import sqlite3
 
+from Special.password_hash import password_encrypt
 from PyQt5 import uic  # Импортируем uic
 from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QTableWidgetItem
 
@@ -27,9 +28,9 @@ class LogIn(QDialog):
         con.close()
 
         for el in result:
-            if self.login == el[0] and self.password == el[1]:
+            if self.login == el[0] and self.password == password_encrypt(el[1]):
                 login_id = el[3]
-                if el[2] == 'admin':
+                if el[2] == 'adm':
                     ex4.show()
                 else:
                     ex1.show()
