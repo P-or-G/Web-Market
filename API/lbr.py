@@ -72,7 +72,6 @@ def get_email(id=0, login=''):
 def get_id(login, email, password, telegramm_id=0):
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(User.login == login, User.email == email).first()
-    print(login, email, password)
     try:
         if password_encrypt(user.__repr__().split(' *** ')[3]) == password:
             db_sess.close()
@@ -142,9 +141,9 @@ def change_param(id, param, new_val):
     elif param == 5:
         user.telegram_id = new_val
     elif param == 6:
-        user.current_id = new_val
+        user.current_id = ', '.join(map(str, new_val))
     elif param == 7:
-        user.history_id = user.history_id + ', '.join(map(str, new_val))
+        user.history_id = ', '.join(map(str, new_val))
     db_sess.commit()
     db_sess.close()
 
@@ -255,3 +254,12 @@ def get_earn(user_id):
         answer.append(int(str(i).replace("'", '').split(' *** ')[7]) * int(str(i).replace("'", '').split(' *** ')[8]))
     db_sess.close()
     return answer
+
+
+def buy_goods(id):
+    db_sess = db_session.create_session()
+    good = db_sess.query(Goods).filter(Goods.id == id).first()
+    good.amount = str(int(good.amount[0]) - 1)
+    good.sell_amount = str(int(good.sell_amount[0]) + 1)
+    db_sess.commit()
+    db_sess.close()
